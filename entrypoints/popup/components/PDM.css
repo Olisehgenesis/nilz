@@ -1,0 +1,368 @@
+/* PDM (Private Data Manager) Styles */
+.pdm-container {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.pdm-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 30px;
+}
+
+.pdm-title h2 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  color: #1f2937;
+}
+
+.header-icon {
+  width: 24px;
+  height: 24px;
+  color: #84cc16;
+}
+
+.pdm-title p {
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.pdm-wallet-info {
+  margin-bottom: 30px;
+}
+
+.wallet-info-card {
+  background: white;
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.wallet-info-card h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  color: #1f2937;
+}
+
+.wallet-info-card .icon {
+  width: 16px;
+  height: 16px;
+  color: #84cc16;
+}
+
+.wallet-info-card p {
+  margin: 4px 0;
+  font-size: 14px;
+  color: #374151;
+}
+
+.error-message {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background-color: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  color: #dc2626;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.error-icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.pdm-actions {
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: center;
+}
+
+.pdm-data-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  color: #6b7280;
+}
+
+.empty-icon {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 16px;
+  color: #d1d5db;
+}
+
+.empty-state h3 {
+  margin-bottom: 8px;
+  color: #374151;
+}
+
+.data-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  background: white;
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  transition: all 0.2s ease;
+}
+
+.data-card:hover {
+  border-color: #84cc16;
+  box-shadow: 0 4px 12px rgba(132, 204, 22, 0.1);
+}
+
+.data-info {
+  flex: 1;
+}
+
+.data-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.data-header h3 {
+  margin: 0;
+  color: #1f2937;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.data-badges {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.encrypted-badge {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  background-color: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 6px;
+  font-size: 12px;
+  color: #16a34a;
+}
+
+.badge-icon {
+  width: 12px;
+  height: 12px;
+}
+
+.created-badge {
+  padding: 4px 8px;
+  background-color: #f3f4f6;
+  border-radius: 6px;
+  font-size: 12px;
+  color: #374151;
+}
+
+.data-value {
+  margin: 8px 0;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 14px;
+  color: #6b7280;
+  background-color: #f9fafb;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #e5e7eb;
+}
+
+.permissions-info {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.permission {
+  font-size: 12px;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.permission.granted {
+  background-color: #f0fdf4;
+  color: #16a34a;
+}
+
+.permission.denied {
+  background-color: #fef2f2;
+  color: #dc2626;
+}
+
+.data-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+/* Modal Styles */
+.create-modal,
+.permissions-modal {
+  max-width: 500px;
+  max-height: 80vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 500;
+  color: #374151;
+  font-size: 14px;
+}
+
+.form-input,
+.form-textarea {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: border-color 0.2s ease;
+  box-sizing: border-box;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: #84cc16;
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.checkbox-label {
+  display: flex !important;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-weight: normal !important;
+}
+
+.checkbox-label input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+}
+
+.permissions-section {
+  margin: 20px 0;
+}
+
+.permissions-section h4 {
+  margin-bottom: 16px;
+  color: #374151;
+  font-size: 16px;
+}
+
+.permissions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.permission-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  background-color: #f9fafb;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+}
+
+.permission-label {
+  font-weight: 500;
+  color: #374151;
+}
+
+.permission-status {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.permission-status.granted {
+  color: #16a34a;
+}
+
+.permission-status.denied {
+  color: #dc2626;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #e5e7eb;
+  position: sticky;
+  bottom: 0;
+  background: white;
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+  .pdm-container {
+    padding: 16px;
+  }
+  
+  .pdm-header {
+    flex-direction: column;
+    gap: 16px;
+    align-items: stretch;
+  }
+  
+  .data-card {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+  
+  .data-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  
+  .data-actions {
+    justify-content: stretch;
+  }
+  
+  .data-actions .reusable-button {
+    flex: 1;
+  }
+  
+  .permissions-info {
+    flex-wrap: wrap;
+  }
+}

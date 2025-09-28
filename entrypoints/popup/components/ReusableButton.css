@@ -1,0 +1,142 @@
+/* ReusableButton Component Styles */
+.reusable-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-weight: 500;
+  border: 2px solid;
+  transition: all 0.1s ease;
+  cursor: pointer;
+  font-family: inherit;
+  text-decoration: none;
+  outline: none;
+  position: relative;
+}
+
+.reusable-button:focus {
+  outline: 2px solid #84cc16;
+  outline-offset: 2px;
+}
+
+/* Primary Button */
+.reusable-button--primary {
+  padding: 12px 24px;
+  border-radius: 8px;
+  color: black;
+  border-color: #84cc16;
+  background-color: rgba(132, 204, 22, 0.2);
+  box-shadow: 0 4px 0 0 rgba(0, 0, 0, 0.25);
+}
+
+.reusable-button--primary:hover:not(.reusable-button--disabled) {
+  background-color: rgba(132, 204, 22, 0.3);
+  box-shadow: 0 6px 0 0 rgba(0, 0, 0, 0.25);
+}
+
+.reusable-button--primary:active:not(.reusable-button--disabled) {
+  box-shadow: 0 2px 0 0 rgba(0, 0, 0, 0.25);
+  transform: translateY(2px);
+}
+
+/* Secondary Button */
+.reusable-button--secondary {
+  padding: 12px 24px;
+  border-radius: 8px;
+  color: black;
+  border-color: #84cc16;
+  background-color: rgba(132, 204, 22, 0.15);
+  box-shadow: 0 3px 0 0 rgba(0, 0, 0, 0.2);
+}
+
+.reusable-button--secondary:hover:not(.reusable-button--disabled) {
+  background-color: rgba(132, 204, 22, 0.25);
+  box-shadow: 0 4px 0 0 rgba(0, 0, 0, 0.2);
+}
+
+.reusable-button--secondary:active:not(.reusable-button--disabled) {
+  box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.2);
+  transform: translateY(1.5px);
+}
+
+/* Small Button */
+.reusable-button--small {
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  color: black;
+  border-color: #84cc16;
+  background-color: rgba(132, 204, 22, 0.2);
+  box-shadow: 0 2px 0 0 rgba(0, 0, 0, 0.15);
+}
+
+.reusable-button--small:hover:not(.reusable-button--disabled) {
+  background-color: rgba(132, 204, 22, 0.3);
+  box-shadow: 0 3px 0 0 rgba(0, 0, 0, 0.15);
+}
+
+.reusable-button--small:active:not(.reusable-button--disabled) {
+  box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.15);
+  transform: translateY(1px);
+}
+
+/* Extra Small Button */
+.reusable-button--extra-small {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  color: black;
+  border-color: #84cc16;
+  background-color: rgba(132, 204, 22, 0.2);
+  box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.1);
+}
+
+.reusable-button--extra-small:hover:not(.reusable-button--disabled) {
+  background-color: rgba(132, 204, 22, 0.3);
+  box-shadow: 0 2px 0 0 rgba(0, 0, 0, 0.1);
+}
+
+.reusable-button--extra-small:active:not(.reusable-button--disabled) {
+  box-shadow: 0 0px 0 0 rgba(0, 0, 0, 0.1);
+  transform: translateY(0.5px);
+}
+
+/* Full Width */
+.reusable-button--full-width {
+  width: 100%;
+}
+
+/* Disabled State */
+.reusable-button--disabled {
+  color: rgba(132, 204, 22, 0.6);
+  border-color: rgba(132, 204, 22, 0.4);
+  background-color: transparent;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+.reusable-button--disabled:hover {
+  background-color: transparent;
+  box-shadow: none;
+  transform: none;
+}
+
+/* Loading State */
+.reusable-button--loading {
+  cursor: not-allowed;
+}
+
+.reusable-button__spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid transparent;
+  border-top: 2px solid currentColor;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

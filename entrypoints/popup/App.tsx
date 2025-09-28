@@ -1,15 +1,73 @@
 import { PrivyProvider, usePrivy, useLogin, useWallets } from '@privy-io/react-auth';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { ReusableButton } from './components/ReusableButton';
+import { WalletManager } from './components/WalletManager';
+import { HackathonLanding } from './HackathonLanding';
+import { Shield, Key, Download, Wallet, Settings } from 'lucide-react';
+import { ImportedWallet, getStoredWallets } from './utils/walletStorage';
 import './App.css';
 
 // You'll need to replace this with your actual Privy App ID
-const PRIVY_APP_ID = process.env.PRIVY_APP_ID || 'YOUR_PRIVY_APP_ID_HERE';
+const PRIVY_APP_ID = 'cmg0bxv0t00ghl70c74n206ko';
 
 const WelcomeContent = () => {
   const { authenticated, ready, user } = usePrivy();
   const { login } = useLogin();
   const { wallets } = useWallets();
   const [isLoading, setIsLoading] = useState(false);
+  const [userData, setUserData] = useState<any>(null);
+  const [showHackathon, setShowHackathon] = useState(false);
+  const [showWalletManager, setShowWalletManager] = useState(false);
+  const [showImportModal, setShowImportModal] = useState(false);
+  const [privateKey, setPrivateKey] = useState('');
+  const [isImporting, setIsImporting] = useState(false);
+  const [activeImportedWallet, setActiveImportedWallet] = useState<ImportedWallet | null>(null);
+
+  // Load user data and wallets from Chrome storage
+  useEffect(() => {
+    const loadStoredData = async () => {
+      if (typeof chrome !== 'undefined' && chrome.storage) {
+        // Load user data
+        chrome.storage.local.get(['userData'], (result) => {
+          if (result.userData) {
+            setUserData(result.userData);
+          }
+        });
+
+        // Load stored wallets and set active wallet
+        try {
+          const walletData = await getStoredWallets();
+          if (walletData.activeWalletId) {
+            const activeWallet = walletData.importedWallets.find(
+              wallet => wallet.id === walletData.activeWalletId
+            );
+            if (activeWallet) {
+              setActiveImportedWallet(activeWallet);
+            }
+          }
+        } catch (error) {
+          console.error('Failed to load stored wallets:', error);
+        }
+      }
+    };
+
+    loadStoredData();
+  }, []);
+
+  // Save user data to Chrome storage when authenticated
+  useEffect(() => {
+    if (authenticated && user && typeof chrome !== 'undefined' && chrome.storage) {
+      const dataToStore = {
+        id: user.id,
+        email: user.email?.address,
+        phone: user.phone?.number,
+        wallets: wallets.map(w => ({ address: w.address, type: w.walletClientType })),
+        timestamp: Date.now()
+      };
+      chrome.storage.local.set({ userData: dataToStore });
+      setUserData(dataToStore);
+    }
+  }, [authenticated, user, wallets]);
 
   const handleCreateWallet = async () => {
     setIsLoading(true);
@@ -47,6 +105,15 @@ const WelcomeContent = () => {
     }
   };
 
+  const handleImportWallet = () => {
+    setShowWalletManager(true);
+  };
+
+  const handleWalletSelect = (wallet: ImportedWallet) => {
+    setActiveImportedWallet(wallet);
+    setShowWalletManager(false);
+  };
+
   if (!ready) {
     return (
       <div className="welcome-container">
@@ -58,11 +125,22 @@ const WelcomeContent = () => {
     );
   }
 
+  if (showHackathon) {
+    return <HackathonLanding onBack={() => setShowHackathon(false)} />;
+  }
+
+  if (showWalletManager) {
+    return <WalletManager onWalletSelect={handleWalletSelect} onClose={() => setShowWalletManager(false)} />;
+  }
+
   if (authenticated && user) {
     return (
       <div className="welcome-container">
         <div className="welcome-header">
-          <h1>🎉 Welcome to Nilz!</h1>
+          <h1>
+            <Shield className="header-icon" />
+            Welcome to Nilz!
+          </h1>
           <p>You're successfully authenticated</p>
         </div>
         
@@ -76,19 +154,46 @@ const WelcomeContent = () => {
           
           {wallets.length > 0 && (
             <div className="wallet-card">
-              <h3>Your Wallet</h3>
+              <h3>Privy Wallet</h3>
               <p><strong>Address:</strong> {wallets[0].address}</p>
               <p><strong>Type:</strong> {wallets[0].walletClientType}</p>
             </div>
           )}
+
+          {activeImportedWallet && (
+            <div className="wallet-card imported-wallet">
+              <h3>Imported Wallet</h3>
+              <p><strong>Name:</strong> {activeImportedWallet.name}</p>
+              <p><strong>DID:</strong> {activeImportedWallet.did}</p>
+              <p><strong>Network:</strong> {activeImportedWallet.network === 'testnet' ? 'Nillion Testnet' : 'Nillion Mainnet'}</p>
+            </div>
+          )}
         </div>
         
-        <button 
-          className="logout-btn"
-          onClick={() => window.location.reload()}
-        >
-          Start Fresh
-        </button>
+        <div style={{ display: 'flex', gap: '12px', flexDirection: 'column' }}>
+          <ReusableButton 
+            variant="primary"
+            fullWidth
+            onClick={() => setShowHackathon(true)}
+          >
+            View Hackathons
+          </ReusableButton>
+          <ReusableButton 
+            variant="secondary"
+            fullWidth
+            onClick={() => setShowWalletManager(true)}
+          >
+            <Wallet className="icon" />
+            Manage Wallets
+          </ReusableButton>
+          <ReusableButton 
+            variant="secondary"
+            fullWidth
+            onClick={() => window.location.reload()}
+          >
+            Start Fresh
+          </ReusableButton>
+        </div>
       </div>
     );
   }
@@ -96,45 +201,37 @@ const WelcomeContent = () => {
   return (
     <div className="welcome-container">
       <div className="welcome-header">
-        <h1>Welcome to Nilz</h1>
-        <p>Your gateway to Web3</p>
+        <h1>
+          <Key className="header-icon" />
+          Welcome to Nilz
+        </h1>
+        <p>Privacy-preserving storage for everyday people</p>
       </div>
       
-      <div className="auth-options">
-        <div className="auth-card">
-          <h3>🚀 Create Wallet</h3>
-          <p>Get started with a new wallet and explore Web3</p>
-          <button 
-            className="primary-btn"
-            onClick={handleCreateWallet}
-            disabled={isLoading}
-          >
-            {isLoading ? 'Creating...' : 'Create Wallet'}
-          </button>
-        </div>
+      <div className="signin-card">
+        <h3>
+          <Shield className="icon" />
+          Sign In to Continue
+        </h3>
+        <p>Access your private data dashboard and manage app permissions securely</p>
+        <ReusableButton 
+          variant="primary"
+          fullWidth
+          onClick={handleLogin}
+          isLoading={isLoading}
+        >
+          Sign In
+        </ReusableButton>
         
-        <div className="auth-card">
-          <h3>🔑 Login with Wallet</h3>
-          <p>Connect your existing wallet to continue</p>
-          <button 
-            className="secondary-btn"
-            onClick={handleLogin}
-            disabled={isLoading}
-          >
-            {isLoading ? 'Connecting...' : 'Login'}
-          </button>
-        </div>
+        <button 
+          className="import-wallet-btn"
+          onClick={handleImportWallet}
+        >
+          <Download className="icon" />
+          Import Wallet
+        </button>
       </div>
-      
-      <div className="features">
-        <h3>What you can do with Nilz:</h3>
-        <ul>
-          <li>✨ Secure wallet management</li>
-          <li>🔐 Easy authentication</li>
-          <li>🌐 Web3 integration</li>
-          <li>📱 Chrome extension convenience</li>
-        </ul>
-      </div>
+
     </div>
   );
 };
@@ -146,12 +243,13 @@ function App() {
       config={{
         appearance: {
           theme: 'light',
-          accentColor: '#676FFF',
+          accentColor: '#84cc16',
           logo: 'https://your-logo-url.com/logo.png'
         },
+        loginMethods: ['email', 'google', 'twitter', 'wallet'],
         embeddedWallets: {
           ethereum: {
-            createOnLogin: 'users-without-wallets'
+            createOnLogin: 'off'
           }
         }
       }}

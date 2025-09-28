@@ -15,7 +15,10 @@
     "postinstall": "wxt prepare"
   },
   "dependencies": {
+    "@nillion/nuc": "^0.1.1",
+    "@nillion/secretvaults": "^0.1.6",
     "@privy-io/react-auth": "^3.0.1",
+    "lucide-react": "^0.544.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1"
   },
