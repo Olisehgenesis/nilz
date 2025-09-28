@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Download, Key, Shield, Eye, EyeOff, Trash2, Plus, Network, Database } from 'lucide-react';
+import { Download, Key, Shield, Eye, EyeOff, Trash2, Plus, Network, Database, Copy, Check } from 'lucide-react';
 import { ReusableButton } from './ReusableButton';
 import { PDM } from './PDM';
 import { storeImportedWallet, getStoredWallets, decryptWalletPrivateKey, removeWallet, setActiveWallet, ImportedWallet, WalletStorage } from '../utils/walletStorage';
@@ -25,6 +25,7 @@ export function WalletManager({ onWalletSelect, onClose }: WalletManagerProps) {
   const [selectedNetworkFilter, setSelectedNetworkFilter] = useState<NillionNetwork | 'all'>('all');
   const [showPDM, setShowPDM] = useState(false);
   const [selectedWalletForPDM, setSelectedWalletForPDM] = useState<ImportedWallet | null>(null);
+  const [copiedDid, setCopiedDid] = useState<string | null>(null);
 
   // Load stored wallets on component mount
   useEffect(() => {
@@ -121,6 +122,20 @@ export function WalletManager({ onWalletSelect, onClose }: WalletManagerProps) {
     await setActiveWallet(wallet.id);
     setActiveWalletId(wallet.id);
     onWalletSelect?.(wallet);
+  };
+
+  const handleImportNewWallet = () => {
+    setShowImportModal(true);
+  };
+
+  const handleCopyDid = async (did: string) => {
+    try {
+      await navigator.clipboard.writeText(did);
+      setCopiedDid(did);
+      setTimeout(() => setCopiedDid(null), 2000);
+    } catch (error) {
+      console.error('Failed to copy DID:', error);
+    }
   };
 
   const handleOpenPDM = (wallet: ImportedWallet) => {
@@ -244,7 +259,20 @@ export function WalletManager({ onWalletSelect, onClose }: WalletManagerProps) {
                     )}
                   </div>
                 </div>
-                <p className="wallet-address">{formatDid(wallet.did)}</p>
+                <div className="wallet-did-container">
+                  <p className="wallet-address">{formatDid(wallet.did)}</p>
+                  <button 
+                    className="copy-did-btn"
+                    onClick={() => handleCopyDid(wallet.did)}
+                    title="Copy full DID"
+                  >
+                    {copiedDid === wallet.did ? (
+                      <Check className="copy-icon" />
+                    ) : (
+                      <Copy className="copy-icon" />
+                    )}
+                  </button>
+                </div>
                 <p className="wallet-meta">
                   Created: {new Date(wallet.createdAt).toLocaleDateString()}
                 </p>
@@ -259,9 +287,10 @@ export function WalletManager({ onWalletSelect, onClose }: WalletManagerProps) {
                 </ReusableButton>
                 <ReusableButton 
                   variant="secondary"
-                  onClick={() => handleWalletSelect(wallet)}
+                  onClick={handleImportNewWallet}
                 >
-                  Select
+                  <Plus className="icon" />
+                  Import New
                 </ReusableButton>
                 <ReusableButton 
                   variant="secondary"

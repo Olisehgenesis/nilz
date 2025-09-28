@@ -366,3 +366,308 @@
     flex-wrap: wrap;
   }
 }
+
+/* New SecretVaults Integration Styles */
+
+/* Header Actions */
+.pdm-header-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+/* Initialization Prompt */
+.initialization-prompt {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+}
+
+.prompt-card {
+  text-align: center;
+  padding: 40px;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border: 2px solid #e5e7eb;
+  max-width: 400px;
+}
+
+.prompt-icon {
+  width: 64px;
+  height: 64px;
+  color: #84cc16;
+  margin-bottom: 20px;
+}
+
+.prompt-card h3 {
+  margin: 0 0 15px 0;
+  font-size: 24px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.prompt-card p {
+  margin: 0 0 25px 0;
+  color: #6b7280;
+  line-height: 1.5;
+}
+
+/* Tabs */
+.pdm-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 30px;
+  background: white;
+  padding: 8px;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 2px solid #e5e7eb;
+}
+
+.tab-btn {
+  flex: 1;
+  padding: 12px 16px;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  color: #6b7280;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.tab-btn:hover {
+  background: #f3f4f6;
+}
+
+.tab-btn.active {
+  background: #84cc16;
+  color: white;
+}
+
+.tab-btn .icon {
+  width: 16px;
+  height: 16px;
+}
+
+/* Collections List */
+.collections-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.collection-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 2px solid #e5e7eb;
+  transition: all 0.3s ease;
+}
+
+.collection-card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+.collection-info h3 {
+  margin: 0 0 10px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.collection-badges {
+  display: flex;
+  gap: 8px;
+}
+
+.type-badge {
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.type-badge.standard {
+  background: #f3f4f6;
+  color: #6b7280;
+  border: 1px solid #d1d5db;
+}
+
+.type-badge.owned {
+  background: #dbeafe;
+  color: #1d4ed8;
+  border: 1px solid #93c5fd;
+}
+
+.collection-actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* Permissions List */
+.permissions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.permission-card {
+  padding: 20px;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 2px solid #e5e7eb;
+}
+
+.permission-info h3 {
+  margin: 0 0 15px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.permission-info p {
+  margin: 5px 0;
+  color: #6b7280;
+}
+
+.permission-details {
+  display: flex;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+/* Owned Badge */
+.owned-badge {
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: #dbeafe;
+  color: #1d4ed8;
+  border: 1px solid #93c5fd;
+}
+
+/* Form Select */
+.form-select {
+  width: 100%;
+  padding: 12px 16px;
+  background: white;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  color: #1f2937;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.form-select:focus {
+  outline: none;
+  border-color: #84cc16;
+}
+
+.form-select option {
+  background: white;
+  color: #1f2937;
+}
+
+/* Radio Group */
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.radio-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  cursor: pointer;
+  padding: 12px;
+  background: #f9fafb;
+  border-radius: 8px;
+  border: 2px solid #e5e7eb;
+  transition: all 0.3s ease;
+}
+
+.radio-label:hover {
+  background: #f3f4f6;
+}
+
+.radio-label input[type="radio"] {
+  display: none;
+}
+
+.radio-custom {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #d1d5db;
+  border-radius: 50%;
+  position: relative;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.radio-label input[type="radio"]:checked + .radio-custom {
+  border-color: #84cc16;
+}
+
+.radio-label input[type="radio"]:checked + .radio-custom::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px;
+  height: 8px;
+  background: #84cc16;
+  border-radius: 50%;
+}
+
+.radio-label small {
+  display: block;
+  margin-top: 4px;
+  color: #6b7280;
+  font-size: 12px;
+}
+
+/* Permission Checkboxes */
+.permission-checkboxes {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Small text */
+small {
+  display: block;
+  margin-top: 4px;
+  color: #6b7280;
+  font-size: 12px;
+}
+
+small a {
+  color: #84cc16;
+  text-decoration: none;
+}
+
+small a:hover {
+  text-decoration: underline;
+}
